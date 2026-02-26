@@ -5,18 +5,20 @@ from rest_framework.viewsets import ModelViewSet
 
 from .models import TimeSlot
 from .serializers import TimeSlotSerializer
-from ..users.permissions import IsDoctor, IsOwnerByDoctor
+from ..users.permissions import IsDoctor, IsDoctorOrReadOnly
 
 
 class TimeSlotViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsDoctor, IsOwnerByDoctor]
+    permission_classes = [IsDoctorOrReadOnly]
 
     serializer_class = TimeSlotSerializer    
     
     def get_queryset(self):
         queryset = TimeSlot.objects.all()
-        return queryset.filter(doctor=self.request.user)
+        # if 
+        # return queryset.filter(doctor=self.request.user)
+        return queryset
     
     def perform_create(self, serializer):
         serializer.save(doctor=self.request.user)

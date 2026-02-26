@@ -1,4 +1,4 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 class IsAdmin(BasePermission):
     def has_permission(self, request, view):
@@ -15,17 +15,28 @@ class IsPatient(BasePermission):
         return request.user.role == 'patient' 
 
 
-class IsOwnerByDoctor(BasePermission):
+class IsDoctorOrReadOnly(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.doctor == request.user 
+        return (
+            request.method in SAFE_METHODS
+            or obj.doctor == request.user
+        )
     
     
-class IsOwnerByPatient(BasePermission):
+class IsPatientOrReadOnly(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.patient == request.user 
+        return (
+            request.method in SAFE_METHODS
+            or obj.patient == request.user
+        )
     
     
-class IsOwnerByAdmin(BasePermission):
+class IsAdminOrReadOnly(BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.admin == request.user 
+        return (
+            request.method in SAFE_METHODS
+            or obj.admin == request.user
+        )
+
+
 

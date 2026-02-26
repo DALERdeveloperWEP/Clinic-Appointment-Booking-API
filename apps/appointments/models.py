@@ -14,3 +14,6 @@ class Appointment(models.Model):
     timeslot = models.OneToOneField(TimeSlot, on_delete=models.CASCADE)
     status = models.CharField(choices=StatusChoice, default=StatusChoice.Pending)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ['patient', 'timeslot']
