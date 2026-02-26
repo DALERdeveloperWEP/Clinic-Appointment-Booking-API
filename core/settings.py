@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'apps.appointments.AppointmentsConfig',
-    'apps.doctors.DoctorsConfig',
-    'apps.users.UsersConfig',
+    'apps.appointments.apps.AppointmentsConfig',
+    'apps.doctors.apps.DoctorsConfig',
+    'apps.users.apps.UsersConfig',
     
     'rest_framework',
     'rest_framework_simplejwt',
