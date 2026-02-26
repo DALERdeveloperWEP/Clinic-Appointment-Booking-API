@@ -10,6 +10,8 @@ class RegisterSerializer(serializers.Serializer):
     confirm = serializers.CharField(min_length=8, max_length=16)
     
     def validate(self, attrs):
+        if User.objects.filter(username=attrs['username']).exists():
+            raise ValidationError({"username": "Username already exists."})
         if attrs['password'] != attrs['confirm']:
             raise ValidationError({"confirm": "Password and confirm password do not match."})
         return super().validate(attrs)

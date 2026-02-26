@@ -5,7 +5,7 @@ from .serializers import RegisterSerializer
 
 class UserRegister(APIView):
     def post(self, request: Request) -> Response:
-        serializer = RegisterSerializer(request.data)
+        serializer = RegisterSerializer(data=request.data)
         
         if serializer.is_valid(raise_exception=True):
             serializer.save()
