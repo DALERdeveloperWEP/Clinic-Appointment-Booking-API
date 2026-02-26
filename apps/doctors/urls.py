@@ -1,5 +1,7 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import TimeSlotViewSet
 
-urlpatterns = [
-    path('awdawd/',lambda x: x)
-]
+router = DefaultRouter()
+router.register("doctors", TimeSlotViewSet, basename="timeslot")
+
+urlpatterns = router.urls
