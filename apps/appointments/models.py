@@ -1,6 +1,8 @@
 from django.db import models
 from ..doctors.models import TimeSlot
 from ..users.models import User
+
+
 class Appointment(models.Model):
     class StatusChoice(models.TextChoices):
         Pending = 'pending', 'Pending' 
