@@ -1,9 +1,10 @@
 from rest_framework.views import APIView, Request, Response
 
 from .serializers import RegisterSerializer
-
+from .permissions import IsAdmin
 
 class UserRegister(APIView):
+    
     def post(self, request: Request) -> Response:
         serializer = RegisterSerializer(data=request.data)
         
@@ -11,3 +12,5 @@ class UserRegister(APIView):
             serializer.save()
             return Response({"message": "User registered successfully."}, status=201)
         return Response(serializer.errors, status=400)
+
+
