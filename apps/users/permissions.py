@@ -29,6 +29,8 @@ class IsPatientOrReadOnly(BasePermission):
             request.method in SAFE_METHODS
             or obj.patient == request.user
         )
+
+    
     
     
 class IsAdminOrReadOnly(BasePermission):
@@ -40,3 +42,10 @@ class IsAdminOrReadOnly(BasePermission):
 
 
 
+class IsPatientAndDoctorOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return (
+            request.method in SAFE_METHODS
+            or obj.patient == request.user
+            or obj.doctor == request.user
+        )

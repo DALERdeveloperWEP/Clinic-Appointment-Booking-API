@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework_simplejwt import serializers
 from .models import Appointment
 
 
@@ -11,6 +12,11 @@ class AppointmentSerializer(ModelSerializer):
     
     def create(self, validated_data):
         request = self.context['request']
+        
+        if request.user.role != "patient":
+            raise serializers.ValidationError("Only patients can create appointments.")
+        
+        
         timeslot = validated_data["timeslot"]
         validated_data["patient"] = request.user
         validated_data["doctor"] = timeslot.doctor

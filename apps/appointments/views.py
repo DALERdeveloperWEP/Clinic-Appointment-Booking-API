@@ -4,12 +4,12 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Appointment
 from .serializers import AppointmentSerializer
-from ..users.permissions import IsPatientOrReadOnly
+from ..users.permissions import IsPatientAndDoctorOrReadOnly
 
 
 class AppointmentsViewSet(ModelViewSet):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsPatientOrReadOnly]
+    permission_classes = [IsAuthenticated, IsPatientAndDoctorOrReadOnly]
     
     serializer_class = AppointmentSerializer
     
